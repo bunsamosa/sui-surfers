@@ -1,0 +1,47 @@
+{
+  "name": "sui-surfer",
+  "version": "0.0.0",
+  "scripts": {
+    "start": "vite",
+    "check-build": "run-p type-check build",
+    "preview": "vite preview --port 4173",
+    "build": "vite build",
+    "serve": "vite preview",
+    "type-check": "vue-tsc --noEmit",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
+  },
+  "dependencies": {
+    "@livepeer/webrtmp-sdk": "^0.2.3",
+    "@mdi/font": "5.9.55",
+    "pinia": "^2.0.14",
+    "qrcode-reader-vue3": "^3.1.2",
+    "roboto-fontface": "*",
+    "three": "^0.142.0",
+    "vue": "^3.2.37",
+    "vue-router": "^4.0.16",
+    "vue-writer": "^1.2.0",
+    "vue3-lottie": "^2.2.5",
+    "vuetify": "^3.0.0-beta.0",
+    "webfontloader": "^1.0.0"
+  },
+  "devDependencies": {
+    "@rushstack/eslint-patch": "^1.1.0",
+    "@types/node": "^16.11.41",
+    "@types/three": "^0.141.0",
+    "@types/webfontloader": "^1.0.0",
+    "@vitejs/plugin-vue": "^2.3.3",
+    "@vue/eslint-config-prettier": "^7.0.0",
+    "@vue/eslint-config-typescript": "^11.0.0",
+    "@vue/tsconfig": "^0.1.3",
+    "eslint": "^8.5.0",
+    "eslint-plugin-vue": "^9.0.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.5.1",
+    "typescript": "~4.7.4",
+    "video.js": "^7.20.1",
+    "vite": "^2.9.12",
+    "vite-plugin-vuetify": "^1.0.0-alpha.0",
+    "vue-cli-plugin-vuetify": "~2.5.1",
+    "vue-tsc": "^0.38.1"
+  }
+}
