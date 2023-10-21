@@ -13,6 +13,7 @@
   "dependencies": {
     "@livepeer/webrtmp-sdk": "^0.2.3",
     "@mdi/font": "5.9.55",
+    "@mysten/zklogin": "^0.3.2",
     "pinia": "^2.0.14",
     "qrcode-reader-vue3": "^3.1.2",
     "roboto-fontface": "*",

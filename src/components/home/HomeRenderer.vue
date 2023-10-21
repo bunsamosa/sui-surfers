@@ -3,34 +3,19 @@ import { ref } from "vue";
 import startButton from "./startButton.json";
 
 var taglines = ref([
-    "Explore your city",
-    "Attend events",
-    "Play games",
+    "Explore the City",
+    "Earn Coins",
+    "Buy NFTS or Physical Goods",
 ])
 </script>
 
 <template>
     <div class="centerDiv">
-        <v-container :fluid=true tag="logo">
-            <v-img src="assets/rubix_logo_white.png" width="40vh" class="mx-auto"></v-img>
-        </v-container>
         <v-container :fluid=true>
-            <p class="question mx-auto">Feeling bored at home?</p>
+            <p class="heading mx-auto">Sui Surfers</p>
         </v-container>
         <v-container>
             <vue-writer :array=taglines class="taglines" :typeSpeed=75 :eraseSpeed=25 />
-            <!-- <v-carousel class="taglines" :show-arrows="false" :hide-delimiters="true" :cycle="true" :interval="2000">
-                <v-carousel-item>
-                    Explore your city
-                </v-carousel-item>
-                <v-carousel-item>
-                    Attend events
-                </v-carousel-item>
-                <v-carousel-item>
-                    Play games
-                </v-carousel-item>
-
-            </v-carousel> -->
         </v-container>
         <v-container>
             <router-link to="/city">
@@ -41,7 +26,7 @@ var taglines = ref([
 </template>
 
 <style>
-.question {
+.heading {
     color: #FFC700;
     font-family: Inter;
     font-size: 4vh;
@@ -49,6 +34,7 @@ var taglines = ref([
     line-height: 4vw;
     letter-spacing: 0em;
     text-align: center;
+    margin-top: 7%;
 }
 
 .taglines {
