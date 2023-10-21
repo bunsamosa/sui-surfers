@@ -7,7 +7,7 @@ const props = defineProps<{
 }>();
 const container: HTMLElement = document.getElementById(props.container) as HTMLElement;
 
-// create game
+// create the game
 const game = new Game(container);
 </script>
 
