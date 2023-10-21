@@ -5,11 +5,12 @@ import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import { TGALoader } from "three/examples/jsm/loaders/TGALoader";
 import { JoyStick, SFX, Preloader } from "./toon3d";
 
+import data from "../../../public/assets/data.json";
+
 // game class
 class Game {
     public container: HTMLElement;
     public player: Player;
-    public player1: Player;
     public banner: Banner;
     public animations: Map<string, any>;
     public camera: THREE.PerspectiveCamera;
@@ -31,6 +32,9 @@ class Game {
     public loadingPlayers: any;
     public remoteData: any;
     public sfx: any;
+    public rayCaster: THREE.Raycaster;
+    public mouse: THREE.Vector2;
+    public data: Data[];
 
     constructor(container: HTMLElement) {
 
@@ -50,12 +54,20 @@ class Game {
 
         // game variables
         this.player = {} as Player;
-        this.player1 = {} as Player;
         this.banner = {} as Banner;
         this.animations = new Map();
         this.container = container;
         this.colliders = [];
         this.clock = new THREE.Clock();
+
+        // interaction variables
+        this.mouse = new THREE.Vector2();
+        this.rayCaster = new THREE.Raycaster();
+
+        //data from json and store in session
+        sessionStorage.setItem('userDetails', JSON.stringify(data))
+        this.data = JSON.parse(sessionStorage.getItem('userDetails') || '[]');
+        
 
         this.messages = {
             text: [
@@ -216,6 +228,7 @@ class Game {
 
         // add event listener to resize canvas on window resize
         window.addEventListener("resize", () => { game.onWindowResize(); }, false);
+        window.addEventListener("dblclick", (event) => { game.onDocumentMouseDown(event); }, false);
     };
 
     // load in-game audio
@@ -533,6 +546,46 @@ class Game {
 
         // if (this.stats != undefined) this.stats.update();
     }
+
+    onDocumentMouseDown( event ) {
+        console.log(event);
+        this.mouse.x = ( event.clientX / this.renderer.domElement.clientWidth ) * 2 - 1;
+	    this.mouse.y = - ( event.clientY / this.renderer.domElement.clientHeight ) * 2 + 1;
+        this.rayCaster.setFromCamera( this.mouse, this.camera );
+        var intersects = this.rayCaster.intersectObjects( this.scene.children );
+        console.log(this.scene.children);
+        var specificUser = this.readData('alpha');
+        if ( intersects.length > 0 ) {
+            const count = specificUser?.interaction == undefined ? 0 : specificUser.interaction++;
+            if(count >= 75) {
+                alert(`You've been really active with our brand! So here is a small reward of 1 SUI coin from our side!`);
+                if(specificUser != undefined) 
+                { 
+                    this.writeData(specificUser)
+                }
+            }
+            else {
+                alert(`Hey you've interacted with this ad ${specificUser?.interaction} times! Hope you like it!`);
+            }
+        }
+        console.log("object", this.data.find(x => x.user == 'alpha'));
+    }
+
+    readData(user: string) {
+        return this.data.find(x => x.user == user);
+    }
+
+    writeData(userObj: Data) {
+        const index = this.data.findIndex(x => x.user == userObj.user);
+        if(index !== -1) { 
+            this.data.splice(index, 1);
+        }
+        userObj.interaction = userObj.interaction >= 75 ? 0 : userObj.interaction;
+        this.data.push(userObj);
+        sessionStorage.setItem('userDetails', JSON.stringify(this.data));
+    }
+
+
 }
 
 export { Game };
